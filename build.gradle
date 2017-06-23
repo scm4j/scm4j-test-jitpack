@@ -24,9 +24,9 @@ jacocoTestReport {
 
 repositories {
 	mavenCentral()
-	maven { 
+/*	maven { 
 		url "https://jitpack.io" 
-	}
+	}*/
 }
 
 dependencies {                                                            
