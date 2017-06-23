@@ -11,34 +11,38 @@ apply plugin: 'idea'
 sourceCompatibility = JavaVersion.VERSION_1_7
 targetCompatibility = JavaVersion.VERSION_1_7
 
-group = ''
-version = new File('version').text
+group = 'org.scm4j'
+version = '3.0-SNAPSHOT'
 
-dependencies {
+jacocoTestReport {
+	reports {
+		xml.enabled = true // coveralls plugin depends on xml format report
+		html.enabled = true
+	}
+}
+
+
+repositories {
+	mavenCentral()
+	maven { 
+		url "https://jitpack.io" 
+	}
+}
+
+dependencies {                                                            
+	compile 'com.github.scm4j:scm4j-vcs-api:master-SNAPSHOT'
+	compile 'org.eclipse.jgit:org.eclipse.jgit:4.3.0.201604071810-r'
+	
+	testCompile 'org.mockito:mockito-core:2.0.62-beta'
 	testCompile 'junit:junit:4.12'
-	compile 'org.apache.commons:commons-lang3:3.5'
-
-   testCompile 'org.mockito:mockito-core:2.0.62-beta'
-
-	compile 'commons-io:commons-io:2.5'
+	testCompile 'com.github.scm4j:scm4j-vcs-test:master-SNAPSHOT'
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
 	classifier = 'sources'
 	from sourceSets.main.allSource
 }
-
-repositories {
-    jcenter()
-}
-
-jacocoTestReport {
-    reports {
-        xml.enabled = true // coveralls plugin depends on xml format report
-        html.enabled = true
-    }
-}
-
+	
 task javadocJar(type: Jar, dependsOn: javadoc) {
 	classifier = 'javadoc'
 	from javadoc.destinationDir
